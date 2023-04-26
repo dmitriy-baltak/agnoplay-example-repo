@@ -12,6 +12,7 @@
     "directory": "weldev-project-react-mui-ts-bp"
   },
   "dependencies": {
+    "@agnoplay/react": "^1.0.0",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@mui/icons-material": "^5.0.1",

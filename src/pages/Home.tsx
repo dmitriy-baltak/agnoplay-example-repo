@@ -1,16 +1,22 @@
+// @ts-nocheck
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { Typography } from '@mui/material';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
+import useScript from '../hooks/useScript';
 
 import logo from '../logo.svg';
 
 import { AppContext } from '../contexts';
 import { APP_TITLE, PAGE_TITLE_HOME } from '../utils/constants';
+import CustomVideoPlayer from '../components/CustomVideoPlayer';
 
 export const Home = () => {
 	const context = useContext(AppContext);
+	const status = useScript(
+		"https://player.agnoplay.com/static/agnoplay/js/agnoplay.js"
+	  );
 
 	return (
 		<>
@@ -19,33 +25,10 @@ export const Home = () => {
 					{PAGE_TITLE_HOME} | {APP_TITLE}
 				</title>
 			</Helmet>
-			<Typography variant='h4'>{`Hello, ${context.user.name}`}</Typography>
-			<div
-				css={css`
-					text-align: center;
-					margin-top: 6rem;
-				`}
-			>
-				<img
-					css={css`
-						height: 40vmin;
-						pointer-events: none;
-						@media (prefers-reduced-motion: no-preference) {
-							animation: App-logo-spin infinite 15s linear;
-						}
-						@keyframes App-logo-spin {
-							from {
-								transform: rotate(0deg);
-							}
-							to {
-								transform: rotate(360deg);
-							}
-						}
-					`}
-					src={logo}
-					alt='logo'
-				/>
-			</div>
+			{status === 'ready' && <CustomVideoPlayer
+				videoUrl={"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"}
+				videoId={null}
+				license_key={"9cbb7cfe-4aa2-4e0f-974e-f4fd487b9723"} />}
 		</>
 	);
 };
